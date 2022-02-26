@@ -2,7 +2,6 @@
 var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var numbers = [1,2,3,4,5,6,7,8,9,0];
 var specialCharacters = [".",",","?","!","@","<",">","#","$","%","^","&","*","(",")","-","_","=","+"];
-
 var confirms = 0
 var finalPassword = ""
 
@@ -17,24 +16,26 @@ var getPasswordLength = function() {
   } else {
     return passLength
   }
- }
+}
 
- var lowerCase = function() {
+var lowerCase = function() {
   var lowerCasePrompt = confirm("Do you want to include lower case characters?");
   return lowerCasePrompt;
- }
+  confirms++
+}
 
- var upperCase = function() {
-   var upperCasePrompt = confirm("Do you want to include upper case characters?");
-   return upperCasePrompt;
- }
+
+var upperCase = function() {
+  var upperCasePrompt = confirm("Do you want to include upper case characters?");
+  return upperCasePrompt;
+}
 
 var askNumber = function() {
   var numberPrompt = confirm("Do you want to include numbers?")
   return numberPrompt;
 }
 
- var askSpecialCharacter = function() {
+var askSpecialCharacter = function() {
   var specialCharConfirm = confirm("Do you want to include special characters?")
   return specialCharConfirm;
 }
