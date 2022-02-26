@@ -5,6 +5,7 @@ var specialCharacters = [".",",","?","!","@","<",">","#","$","%","^","&","*","("
 var confirms = 0
 var finalPassword = ""
 
+
 var getPasswordLength = function() {
   var passLength = prompt("How long do you want the password");
   if (passLength < 8) {
@@ -14,30 +15,46 @@ var getPasswordLength = function() {
     alert("You must have no more than 128 characters!")
     getPasswordLength();
   } else {
-    return passLength
+    lowerCase();
+    return passLength;
   }
 }
 
 var lowerCase = function() {
-  var lowerCasePrompt = confirm("Do you want to include lower case characters?");
-  return lowerCasePrompt;
-  confirms++
+  if (confirm("Do you want to include lower case characters?")){
+    confirms++;
+    upperCase();
+    return;
+  } else {
+    upperCase();
+  }
 }
 
-
 var upperCase = function() {
-  var upperCasePrompt = confirm("Do you want to include upper case characters?");
-  return upperCasePrompt;
+  if (confirm("Do you want to include upper case characters?")){
+    confirms++;
+    askNumber();
+    return;
+  } else {
+    askNumber();
+  }
 }
 
 var askNumber = function() {
-  var numberPrompt = confirm("Do you want to include numbers?")
-  return numberPrompt;
+  if (confirm("Do you want to include numbers?")){
+    confirms++
+    askSpecialCharacter();
+    return
+  } else {
+    askSpecialCharacter();
+  }
 }
 
 var askSpecialCharacter = function() {
-  var specialCharConfirm = confirm("Do you want to include special characters?")
-  return specialCharConfirm;
+  if (confirm("Do you want to include special characters?")){
+    confirms++;
+    return;
+  }
 }
 
 var createRandomLetter = function() {
@@ -56,7 +73,7 @@ var createRandomSpecial = function() {
 }
 
 var lowerCasePicker = function(num) {
-  var fractionalNum = num / 4;
+  var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
     finalPassword += letters[createRandomLetter()].toLowerCase();
     fractionalNum--;
@@ -64,7 +81,7 @@ var lowerCasePicker = function(num) {
 }
 
 var upperCasePicker = function(num) {
-  var fractionalNum = num / 4;
+  var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
     finalPassword += letters[createRandomLetter()];
     fractionalNum--;
@@ -72,7 +89,7 @@ var upperCasePicker = function(num) {
 }
 
 var specialCharacterPicker = function(num) {
-  var fractionalNum = num / 4;
+  var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
     finalPassword += specialCharacters[createRandomSpecial()];
     fractionalNum--;
@@ -80,7 +97,7 @@ var specialCharacterPicker = function(num) {
 }
 
 var numberPicker = function(num) {
-  var fractionalNum = num / 4;
+  var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
     finalPassword += numbers[createRandomNumber()];
     fractionalNum--;
@@ -88,14 +105,12 @@ var numberPicker = function(num) {
 }
 
 function generatePassword() {
+
   var passwordLength = getPasswordLength();
-  lowerCase();
+
   lowerCasePicker(passwordLength);
-  upperCase();
   upperCasePicker(passwordLength);
-  askNumber();
   numberPicker(passwordLength);
-  askSpecialCharacter();
   specialCharacterPicker(passwordLength);
   checkFinalPassword(passwordLength);
   console.log(finalPassword);
@@ -113,10 +128,10 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = finalPassword;
 
 }
 
