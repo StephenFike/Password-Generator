@@ -2,9 +2,8 @@
 var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var numbers = [1,2,3,4,5,6,7,8,9,0];
 var specialCharacters = [".",",","?","!","@","<",">","#","$","%","^","&","*","(",")","-","_","=","+"];
-var confirms = 0
-var finalPassword = ""
-
+var confirms = 0;
+var finalPassword = "";
 
 var getPasswordLength = function() {
   var passLength = prompt("How long do you want the password");
@@ -104,6 +103,13 @@ var numberPicker = function(num) {
   }
 }
 
+var checkfinalPassword = function(num) {
+  if(finalPassword.length > num) {
+  var finalPasswordTrim = finalPassword.substring(0, parseInt(num));
+  finalPassword = finalPasswordTrim;
+  }
+}
+
 function generatePassword() {
 
   var passwordLength = getPasswordLength();
@@ -112,16 +118,9 @@ function generatePassword() {
   upperCasePicker(passwordLength);
   numberPicker(passwordLength);
   specialCharacterPicker(passwordLength);
-  checkFinalPassword(passwordLength);
+  checkfinalPassword(passwordLength);
   console.log(finalPassword);
  }
-
-var checkFinalPassword = function(num) {
-  if(finalPassword.length > num) {
-  var finalPasswordTrim = finalPassword.substring(0, parseInt(num));
-  finalPassword = finalPasswordTrim;
-  }
-}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
