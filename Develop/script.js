@@ -3,7 +3,10 @@ var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","
 var numbers = [1,2,3,4,5,6,7,8,9,0];
 var specialCharacters = [".",",","?","!","@","<",">","#","$","%","^","&","*","(",")","-","_","=","+"];
 var confirms = 0;
+var nonRandomPassword = "";
 var finalPassword = "";
+var lowerCaseBoolean = false;
+
 
 var getPasswordLength = function() {
   var passLength = prompt("How long do you want the password");
@@ -14,46 +17,34 @@ var getPasswordLength = function() {
     alert("You must have no more than 128 characters!")
     getPasswordLength();
   } else {
-    lowerCase();
     return passLength;
   }
 }
 
-var lowerCase = function() {
-  if (confirm("Do you want to include lower case characters?")){
-    confirms++;
-    upperCase();
-    return;
-  } else {
-    upperCase();
-  }
+var askLowerCase = function() {
+  var lowerCaseConfirm = confirm("Do you want to include lower case characters?")
+    if (lowerCaseConfirm == true) {
+      confirms++
+    }
+    lowerCaseBoolean = lowerCaseConfirm;
 }
 
-var upperCase = function() {
-  if (confirm("Do you want to include upper case characters?")){
-    confirms++;
-    askNumber();
-    return;
-  } else {
-    askNumber();
-  }
+var askUpperCase = function() {
+  var upperCaseConfirm = confirm("Do you want to include upper case characters?")
+  confirms++;
+  return upperCaseConfirm;
 }
 
 var askNumber = function() {
-  if (confirm("Do you want to include numbers?")){
-    confirms++
-    askSpecialCharacter();
-    return
-  } else {
-    askSpecialCharacter();
-  }
+  var askNumberConfirm = confirm("Do you want to include numbers?")
+  confirms++;
+  return askNumberConfirm;
 }
 
 var askSpecialCharacter = function() {
-  if (confirm("Do you want to include special characters?")){
-    confirms++;
-    return;
-  }
+  var askSpecialCharacterConfirm = confirm("Do you want to include special characters?")
+  confirms++
+  return askSpecialCharacterConfirm;
 }
 
 var createRandomLetter = function() {
@@ -110,13 +101,33 @@ var checkfinalPassword = function(num) {
   }
 }
 
+function getPasswordRequirments() {
+  askLowerCase();
+  askUpperCase();
+  askNumber();
+  askSpecialCharacter();
+}
+
 function generatePassword() {
 
   var passwordLength = getPasswordLength();
+  getPasswordRequirments();
 
-  lowerCasePicker(passwordLength);
-  upperCasePicker(passwordLength);
-  numberPicker(passwordLength);
+  if (lowerCaseBoolean == true) {
+    lowerCasePicker(passwordLength);
+  }
+
+  if (upperCaseBoolen == true) {
+    upperCasePicker(passwordLength);
+  }
+ 
+  if (numberPickerBoolean == true) {
+    numberPicker(passwordLength);
+  }
+
+  if (specialCharacterPickerBoolean) {
+
+  }
   specialCharacterPicker(passwordLength);
   checkfinalPassword(passwordLength);
   console.log(finalPassword);
