@@ -3,9 +3,14 @@ var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","
 var numbers = [1,2,3,4,5,6,7,8,9,0];
 var specialCharacters = [".",",","?","!","@","<",">","#","$","%","^","&","*","(",")","-","_","=","+"];
 var confirms = 0;
+
 var nonRandomPassword = "";
 var finalPassword = "";
+
 var lowerCaseBoolean = false;
+var upperCaseBoolen = false;
+var numberPickerBoolean = false;
+var specialCharacterPickerBoolean = false;
 
 
 var getPasswordLength = function() {
@@ -31,20 +36,26 @@ var askLowerCase = function() {
 
 var askUpperCase = function() {
   var upperCaseConfirm = confirm("Do you want to include upper case characters?")
-  confirms++;
-  return upperCaseConfirm;
+  if (upperCaseConfirm == true) {
+    confirms++;
+  }
+  upperCaseBoolen = upperCaseConfirm;
 }
 
 var askNumber = function() {
   var askNumberConfirm = confirm("Do you want to include numbers?")
-  confirms++;
-  return askNumberConfirm;
+  if (askNumberConfirm == true) {
+    confirms++
+  }
+  numberPickerBoolean = askNumberConfirm;
 }
 
 var askSpecialCharacter = function() {
   var askSpecialCharacterConfirm = confirm("Do you want to include special characters?")
-  confirms++
-  return askSpecialCharacterConfirm;
+  if (askSpecialCharacterConfirm == true) {
+    confirms++
+  }
+  specialCharacterPickerBoolean = askSpecialCharacterConfirm;
 }
 
 var createRandomLetter = function() {
@@ -65,7 +76,7 @@ var createRandomSpecial = function() {
 var lowerCasePicker = function(num) {
   var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
-    finalPassword += letters[createRandomLetter()].toLowerCase();
+    nonRandomPassword += letters[createRandomLetter()].toLowerCase();
     fractionalNum--;
   }
 }
@@ -73,7 +84,7 @@ var lowerCasePicker = function(num) {
 var upperCasePicker = function(num) {
   var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
-    finalPassword += letters[createRandomLetter()];
+    nonRandomPassword += letters[createRandomLetter()];
     fractionalNum--;
   }
 }
@@ -81,7 +92,7 @@ var upperCasePicker = function(num) {
 var specialCharacterPicker = function(num) {
   var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
-    finalPassword += specialCharacters[createRandomSpecial()];
+    nonRandomPassword += specialCharacters[createRandomSpecial()];
     fractionalNum--;
   }
 }
@@ -89,15 +100,23 @@ var specialCharacterPicker = function(num) {
 var numberPicker = function(num) {
   var fractionalNum = num / confirms;
   while(fractionalNum > 0) {
-    finalPassword += numbers[createRandomNumber()];
+    nonRandomPassword += numbers[createRandomNumber()];
     fractionalNum--;
   }
 }
 
-var checkfinalPassword = function(num) {
-  if(finalPassword.length > num) {
-  var finalPasswordTrim = finalPassword.substring(0, parseInt(num));
-  finalPassword = finalPasswordTrim;
+var checknonRandomPassword = function(num) {
+  if(nonRandomPassword.length > num) {
+  var nonRandomPasswordTrim = nonRandomPassword.substring(0, parseInt(num));
+  nonRandomPassword = nonRandomPasswordTrim;
+  }
+}
+
+//  FINISH
+function randomizePassword() {
+
+  while (finalPassword.length < nonRandomPassword.length) {
+    finalPassword += nonRandomPassword.charAt(Math.floor(Math.random() * nonRandomPassword.length))
   }
 }
 
@@ -126,10 +145,14 @@ function generatePassword() {
   }
 
   if (specialCharacterPickerBoolean) {
-
+    specialCharacterPicker(passwordLength);
   }
-  specialCharacterPicker(passwordLength);
-  checkfinalPassword(passwordLength);
+
+  checknonRandomPassword(passwordLength);
+
+  randomizePassword();
+
+  console.log(nonRandomPassword);
   console.log(finalPassword);
  }
 
