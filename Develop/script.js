@@ -16,11 +16,8 @@ var specialCharacterPickerBoolean = false;
 
 var getPasswordLength = function() {
   var passLength = prompt("How long do you want the password");
-  if (passLength < 8) {
-    alert("You must have at least 8 characters!")
-    getPasswordLength();
-  } else if (passLength > 128) {
-    alert("You must have no more than 128 characters!")
+  if (passLength < 8 || passLength > 128 || isNaN(passLength)) {
+    alert("You must input a number between 8 and 128!")
     getPasswordLength();
   } else {
     console.log(passLength);
