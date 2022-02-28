@@ -17,3 +17,4 @@ After making your selections, you are given a completely random password based o
 
 Just press the generate button again to get a completely new password!
 
+![Password-Generator](/Develop/Assets/password-generator.jpg)
