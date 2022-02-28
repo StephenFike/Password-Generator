@@ -2,6 +2,7 @@
 var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var numbers = [1,2,3,4,5,6,7,8,9,0];
 var specialCharacters = [".",",","?","!","@","<",">","#","$","%","^","&","*","(",")","-","_","=","+"];
+
 var confirms = 0;
 
 var nonRandomPassword = "";
@@ -22,6 +23,7 @@ var getPasswordLength = function() {
     alert("You must have no more than 128 characters!")
     getPasswordLength();
   } else {
+    console.log(passLength);
     return passLength;
   }
 }
@@ -112,12 +114,16 @@ var checknonRandomPassword = function(num) {
   }
 }
 
-//  FINISH
 function randomizePassword() {
-
   while (finalPassword.length < nonRandomPassword.length) {
     finalPassword += nonRandomPassword.charAt(Math.floor(Math.random() * nonRandomPassword.length))
   }
+}
+
+function clearText() {
+  finalPassword = "";
+  nonRandomPassword = "";
+  confirms = 0;
 }
 
 function getPasswordRequirments() {
@@ -152,21 +158,28 @@ function generatePassword() {
 
   randomizePassword();
 
-  console.log(nonRandomPassword);
-  console.log(finalPassword);
- }
+  return finalPassword;
+
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  generatePassword();
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = finalPassword;
+  passwordText.value = password;
 
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+
+function passwordGeneration() {
+  clearText();
+  writePassword();
+}
+
+generateBtn.addEventListener("click", passwordGeneration);
+
